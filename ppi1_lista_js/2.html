@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2</title>
+
+    <style>
+      body {
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="onButtonClick()">Click Me!</button>
+
+    <script>
+      function onButtonClick() {
+        console.log("on button click called");
+
+        const variaveis = [
+          (nome = "Gustavo"),
+          (idade = 17),
+          (telefone = null),
+          (cpf = undefined),
+          (maiorDeIdade = false), // idade >= 18
+          (notas = [10, 10, 10]),
+        ];
+
+        variaveis.forEach((element) => {
+          console.log(typeof element);
+          paragraph = document.createElement("p");
+          paragraph.id = `p${typeof element}`;
+          paragraph.innerText = typeof element
+          document.body.appendChild(paragraph);
+        });
+
+        console.log(operaco)
+      }
+    </script>
+  </body>
+</html>

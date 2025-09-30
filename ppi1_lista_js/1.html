@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que é JavaScript?</title>
+</head>
+<body>
+    <h1 id="header">
+        O que é JavaScript?
+    </h1>
+
+    <P id="explicacao">
+        
+
+        d) Objetos globais (document, console e alert) são objetos fornecidos pelo interpretador JavaScript em tempo de desenvolvimento que permitem a manipulação de elementos
+        na página HTML. Document permite manipular (adicionar, remover, atualizar) componentes, Console permite usar utilitários de console (print, etc), dentre outros
+    </P>
+
+    <p id="hora-atual"></p>
+
+    <script>
+        alert("Página carregada!");
+
+        console.log("Hello, World!");
+        
+        const now = new Date();
+        paragraph = document.getElementById("hora-atual")
+        paragraph.innerText = `Hora atual: ${now.getHours()}:${now.getMinutes()}`
+    </script>
+</body>
+</html>
