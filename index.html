@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS</title>
+</head>
+<body>
+    
+    <script>
+        counter = 0
+
+        button = document.createElement("button")
+        button.id = "btn"
+        button.innerText = "Increment"
+
+        paragraph = document.createElement("p")
+        paragraph.id = "p"
+        paragraph.innerText = counter
+
+        document.body.appendChild(button)
+        document.body.appendChild(paragraph)
+
+        document.body.style.height = "100vh"
+        document.body.style.display = "flex"
+        document.body.style.flexDirection = "column"
+        document.body.style.justifyContent = "center"
+        document.body.style.alignItems = "center"
+
+        button.addEventListener("click", () => {
+            counter++
+            paragraph.innerText = counter
+        })
+
+    </script>
+
+</body>
+</html>
