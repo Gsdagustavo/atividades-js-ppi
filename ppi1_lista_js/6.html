@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>6</title>
+        <style>
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: auto;
+            margin-top: 200px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        ol {
+            list-style-type: disc;
+        }
+
+        li {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Números Primos</h1>
+
+            <input type="number" id="min-number-input"
+                placeholder="Número mínimo">
+            <input type="number" id="max-number-input"
+                placeholder="Número máximo">
+            <input type="button" value="Sortear" id="calculate-button"
+                onclick="calculatePrimes()">
+
+            <h3>Números Primos</h3>
+            <ol id="prime-numbers-list"></ol>
+        </div>
+
+        <script>
+        function calculatePrimes() {
+            const minNumber = parseInt(document.getElementById("min-number-input").value);
+            const maxNumber = parseInt(document.getElementById("max-number-input").value);
+
+            if (isNaN(minNumber) || isNaN(maxNumber)) {
+                alert("Por favor, preencha ambos os campos.");
+                return;
+            }
+
+            if (minNumber >= maxNumber) {
+                alert("O número máximo deve ser maior que o número mínimo.");
+                return;
+            }
+
+            if (minNumber < 1 || maxNumber < 1) {
+                alert("Os números devem ser maiores que zero.");
+                return;
+            }
+
+            const primeNumbersList = document.getElementById("prime-numbers-list");
+            primeNumbersList.innerHTML = "";
+
+            for (let num = minNumber; num <= maxNumber; num++) {
+                if (isPrime(num)) {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = num;
+                    primeNumbersList.appendChild(listItem);
+                }
+            }
+        }
+
+        function isPrime(num) {
+            if (num <= 1) {
+                return false;
+            }
+            
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) {
+                    return false
+                }
+            }
+            return true;
+        }
+    </script>
+    </body>
+</html>
