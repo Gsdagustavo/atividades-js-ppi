@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteio</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sorteio</title>
+        <style>
         .container {
             text-align: center;
             display: flex;
@@ -30,29 +30,35 @@
             margin-bottom: 12px;
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Sorteio de Números</h1>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Sorteio de Números</h1>
 
-        <input type="number" id="min-number-input" placeholder="Número mínimo">
-        <input type="number" id="max-number-input" placeholder="Número máximo">
-        <input type="button" value="Sortear" id="draw-button" onclick="drawNumber()">
+            <input type="number" id="min-number-input"
+                placeholder="Número mínimo">
+            <input type="number" id="max-number-input"
+                placeholder="Número máximo">
+            <input type="button" value="Sortear" id="draw-button"
+                onclick="drawNumber()">
 
-        <h3>Números Sorteados</h3>
-        <ol id="drawn-numbers-list"></ol>
-    </div>
+            <h3>Números Sorteados</h3>
+            <ol id="drawn-numbers-list"></ol>
+        </div>
 
-    <script>
+        <script>
         class DrawNumberResult {
-            constructor(minNumber, maxNumber, drawnNumber) {
+            constructor(minNumber, maxNumber, drawnNumber, timesDrawn) {
                 this.minNumber = minNumber;
                 this.maxNumber = maxNumber;
                 this.drawnNumber = drawnNumber;
+                this.timesDrawn = timesDrawn;
             }
 
             toString() {
-                return `Número sorteado entre ${this.minNumber} e ${this.maxNumber}: ${this.drawnNumber}`;
+                return this.timesDrawn == null 
+                ? `Número sorteado entre ${this.minNumber} e ${this.maxNumber}: ${this.drawnNumber}` 
+                : `Número sorteado entre ${this.minNumber} e ${this.maxNumber}: ${this.drawnNumber} (sorteado ${this.timesDrawn} vezes)`;
             }
         }
 
@@ -79,9 +85,12 @@
 
             const drawnNumber = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
 
-            alert("Número sorteado: " + drawnNumber);
-
-            numeros.push(new DrawNumberResult(minNumber, maxNumber, drawnNumber));
+            if (numeros.filter(n => n.drawnNumber === drawnNumber).length > 0) {
+                const existingEntry = numeros.find(n => n.drawnNumber === drawnNumber);
+                existingEntry.timesDrawn++;
+            } else {
+                numeros.push(new DrawNumberResult(minNumber, maxNumber, drawnNumber, numeros.filter(n => n.drawnNumber === drawnNumber).length + 1));
+            }
 
             const drawnNumbersList = document.getElementById("drawn-numbers-list");
             drawnNumbersList.innerHTML = "";
@@ -92,5 +101,5 @@
             });
         }
     </script>
-</body>
+    </body>
 </html>
