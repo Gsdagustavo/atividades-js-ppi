@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio</title>
+    <style>
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: auto;
+            margin-top: 200px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        ol {
+            list-style-type: disc;
+        }
+
+        li {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sorteio de Números</h1>
+
+        <input type="number" id="min-number-input" placeholder="Número mínimo">
+        <input type="number" id="max-number-input" placeholder="Número máximo">
+        <input type="button" value="Sortear" id="draw-button" onclick="drawNumber()">
+
+        <h3>Números Sorteados</h3>
+        <ol id="drawn-numbers-list"></ol>
+    </div>
+
+    <script>
+        class DrawNumberResult {
+            constructor(minNumber, maxNumber, drawnNumber) {
+                this.minNumber = minNumber;
+                this.maxNumber = maxNumber;
+                this.drawnNumber = drawnNumber;
+            }
+
+            toString() {
+                return `Número sorteado entre ${this.minNumber} e ${this.maxNumber}: ${this.drawnNumber}`;
+            }
+        }
+
+        const numeros = [];
+
+        function drawNumber() {
+            const minNumber = parseInt(document.getElementById("min-number-input").value);
+            const maxNumber = parseInt(document.getElementById("max-number-input").value);
+
+            if (isNaN(minNumber) || isNaN(maxNumber)) {
+                alert("Por favor, preencha ambos os campos.");
+                return;
+            }
+
+            if (minNumber >= maxNumber) {
+                alert("O número máximo deve ser maior que o número mínimo.");
+                return;
+            }
+
+            if (minNumber < 1 || maxNumber < 1) {
+                alert("Os números devem ser maiores que zero.");
+                return;
+            }
+
+            const drawnNumber = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+
+            alert("Número sorteado: " + drawnNumber);
+
+            numeros.push(new DrawNumberResult(minNumber, maxNumber, drawnNumber));
+
+            const drawnNumbersList = document.getElementById("drawn-numbers-list");
+            drawnNumbersList.innerHTML = "";
+            numeros.forEach((numero) => {
+                const listItem = document.createElement("li");
+                listItem.textContent = numero.toString();
+                drawnNumbersList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
