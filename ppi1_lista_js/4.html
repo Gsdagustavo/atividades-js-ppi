@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IMC</title>
+
+        <style>
+    
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 200px;
+            margin: auto;
+            margin-top: 200px;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        img {
+            max-height: 400px;
+        }
+
+    </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <h1>Teste de IMC</h1>
+            <input type="text" name="Insira seu nome" id="name-input"
+                placeholder="Insira seu nome">
+            <input type="number" name="Insira seu peso" id="weight-input"
+                placeholder="Insira seu peso">
+            <input type="number" name="Insira sua altura" id="height-input"
+                placeholder="Insira sua altura (em metros)">
+
+            <button id="calculate-btn">Calcular IMC</button>
+
+            <p id="imc-result"></p>
+
+            <img src id="imc-img">
+        </div>
+
+        <script>
+        function calculateIMC(name, weight, height) {
+            return weight / (height * height)
+        }
+
+        function validateField(value) {
+            if (value == null || value <= 0) {
+                return false
+            }
+
+            return true
+        }
+
+        function getIMCImage(imc) {
+            const basePath = "assets/imc";
+
+            if (imc < 18.5) {
+                return `${basePath}/abaixopeso.png`;
+            } else if (imc < 25) {
+                return `${basePath}/normal.png`;
+            } else if (imc < 30) {
+                return `${basePath}/sobrepeso.png`;
+            } else if (imc < 35) {
+                return `${basePath}/obesidade1.png`;
+            } else if (imc < 40) {
+                return `${basePath}/obesidade2.png`;
+            } else {
+                return `${basePath}/obesidade3.png`;
+            }
+        }
+
+        document.getElementById("calculate-btn").addEventListener("click", () => {
+            const name = document.getElementById("name-input").value
+            if (name == null || name.trim() === "") {
+                alert("Nome inválido")
+                return
+            }
+
+            const weight = document.getElementById("weight-input").value
+
+            console.log(weight)
+
+            if (!validateField(weight)) {
+                alert("Peso inválido")
+                return
+            }
+
+            const height = document.getElementById("height-input").value
+            if (!validateField(height)) {
+                alert("Altura inválida")
+                return
+            }
+
+            const imc = calculateIMC(name, weight, height)
+            const imcText = `${name}, seu IMC é ${imc.toFixed(2)}`
+            
+            const imcElement = document.getElementById("imc-result")
+            imcElement.textContent = imcText
+
+            const imgSrc = getIMCImage(imc)
+            const imgElem = document.getElementById("imc-img")
+            imgElem.src = imgSrc
+        })
+
+    </script>
+    </body>
+</html>
